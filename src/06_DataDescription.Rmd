@@ -1,0 +1,17 @@
+---
+title: "06_DataDescription"
+---
+The [@bansal_2021_olympics_] data set called ''Olympics_" was compiled by ''Harsh Bansal" and was last updated 4 years ago. The dataset was uploaded and sourced from Kaggle [@keating_2025_kaggle]. According to the site, there is only one owner with no DOI Citation, provenance or license. The restriction on the data is placed on it by Kaggle by way of citation of the owner ''Harsh Bansal". I am using this data at my own risk as it has not been authenticated or carefully curated. 
+
+The dataset contains 4 files, ''athlete_events_data_dictionary.csv" contains 15 observations of 2 variables, ''country_definitions.csv" contains 230 observations of 3 variables, ''country_definitions_data_dictionary.csv" contains 3 observations of 2 variables, and ''athlete_events.csv" containing 271,116 observations of 15 variables.
+
+The ''athlete_events.csv" file contains all athlete information of all the Olympic games dating from 1896 summer games and 1924 winter games up to and including the 2016 summer Olympic games. The following table outlines the variables contained within the set.
+```{r demo, include=TRUE}
+athletes
+```
+The variables that I am most interested in is the medal type, so as a country we can maximize receiving these. The country that the athlete is from so we can gain counts of participants in each prior games. This will allow us to work out the proportion of winners. The sport they participated in to break down the best results. Potentially the height and weight for some sports are equally important. This information will become clearer as further graphs and analysis is performed during the next 7 weeks. 
+
+In the athletes table there is a field called NOC which is the National Olympic City code that links to the country definitions that will allow for better groupings of data by country when linked to each other.
+
+
+

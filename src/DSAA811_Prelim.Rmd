@@ -14,8 +14,8 @@ output:
   #html_document:
   pdf_document:
     includes:
-      in_header: import.sty
-      before_body: title.sty
+      in_header: 00_Globals.sty
+      before_body: 00_Title.sty
       #after_body: tail.sty
       toc: yes
       keep_tex: yes
@@ -35,33 +35,25 @@ link-citations: TRUE
 citation_package: apa-annotated.csl
 ---
 
-````{=html}
-<!--
-```{=tex}
-\begin{center}
-{\Large{School of Mathematics \& Applied Statistics}}\\[10pt]
-{\LARGE{\bf{DSAA311/DSAA811: Data Analytics and Visualisation}}} \\[10pt]
-{\Large{\bf{Preliminary Report}}}\\[10pt]
-\end{center}
-\newpage
-```
--->
-````
-
 ```{r setup, include=FALSE}
 library(knitr)
 library(tinytex)
 library(tidyverse)
+library(glossary)
+glossary_path("./src/glossary.yml")
 opts_chunk$set(echo = TRUE)
+#Read in the 4 csv files
+athletes <- read.csv('./data/athlete_events_data_dictionary.csv', header = TRUE)
+events <- read.csv('./data/athlete_events.csv', header = TRUE)
+countryDefdd<- read.csv('./data/country_definitions_data_dictionary.csv',header = TRUE)
+countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
 ```
 
 \newpage
 
 # Abstract
-
-```{r child = 'src/abstract.Rmd'}
+```{r child = 'src/01_Abstract.Rmd'}
 ```
-
 
 ```{=tex}
   %Display the table of contents and bypass the R commands to do this
@@ -72,32 +64,36 @@ opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-```{r child = 'src/introduction.Rmd'}
+```{r child = 'src/02_Introduction.Rmd'}
 ```
-
 
 # Background
+```{r child = 'src/03_Background.Rmd'}
+```
+glossary_popup("hover")
+glossary("NOC")
+glossary("p-value", show = "def")
+
+glossary_table()
 
 # Research questions and aims of the project
+```{r child = 'src/04_ResearchQuestions.Rmd'}
+```
 
 # Rationale
+```{r child = 'src/05_Rational.Rmd'}
+```
 
 # Data Description
+```{r child = 'src/06_DataDescription.Rmd'}
+```
 
 # Exploritory data analysis
-
-# Conclusion
-
-For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-```{r cars}
-summary(cars)
+```{r child = 'src/07_Exploritory.Rmd'}
 ```
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+# Conclusion / Discussion
+```{r child = 'src/08_Conclude.Rmd'}
 ```
-
 \newpage
 
 #Session Information
