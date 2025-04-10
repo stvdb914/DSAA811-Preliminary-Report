@@ -3,3 +3,8 @@ title: "03_Background"
 ---
 
 This is the sub section of the main project
+
+
+[@haut_2014_nothing] Looks into the statistics of the Olympics but is investigating the data from the perspective of increasing funds to the rural areas to increase performance and then winners.
+[@condon_1999_predicting] Uses neural networks to produce three models that look at winners from a country perspective using data up until 1996
+[@heazlewood_2006_prediction] Looks into creating models to predict the optimal athlete numbers for all swimming events. This article was able to make some of these predictions but improvements are needed to apply these results to athletics and swimming across the various distances of the races. These models are applied to results from 2004 and earlier.

@@ -39,14 +39,14 @@ citation_package: apa-annotated.csl
 library(knitr)
 library(tinytex)
 library(tidyverse)
-library(glossary)
-glossary_path("./src/glossary.yml")
 opts_chunk$set(echo = TRUE)
 #Read in the 4 csv files
 athletes <- read.csv('./data/athlete_events_data_dictionary.csv', header = TRUE)
 events <- read.csv('./data/athlete_events.csv', header = TRUE)
 countryDefdd<- read.csv('./data/country_definitions_data_dictionary.csv',header = TRUE)
 countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
+glossaryDef <- data.frame(Acronym = character(), Meaning = character())
+glossaryDef <- add_row(glossaryDef, Acronym = "NOC", Meaning = "National Olympic Committee")
 ```
 
 \newpage
@@ -55,12 +55,20 @@ countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
 ```{r child = 'src/01_Abstract.Rmd'}
 ```
 
+# Glossary
+```{r Glossary, include=TRUE}
+
+
+  as_tibble(glossaryDef)
+```
+
 ```{=tex}
   %Display the table of contents and bypass the R commands to do this
   \newpage
   \tableofcontents
-\newpage
+  \newpage
 ```
+
 
 # Introduction
 
@@ -70,11 +78,6 @@ countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
 # Background
 ```{r child = 'src/03_Background.Rmd'}
 ```
-glossary_popup("hover")
-glossary("NOC")
-glossary("p-value", show = "def")
-
-glossary_table()
 
 # Research questions and aims of the project
 ```{r child = 'src/04_ResearchQuestions.Rmd'}
