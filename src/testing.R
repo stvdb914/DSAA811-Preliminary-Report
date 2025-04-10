@@ -20,4 +20,19 @@ events  %>% filter(Year == 2016) %>%
   theme_minimal(12)
 
 
-  
+events %>% filter (Year >= 2012) %>%
+  ggplot() +
+  geom_bar(aes(y = Sport), stat="count") +
+  labs(title = 'Number of athletes per sport in 2016') +
+  theme_minimal(12) +
+  facet_wrap(events$Year)
+
+options(max.print=1000000)
+
+events %>% filter (Year == 2016) %>%  ggplot() +
+  geom_bar(aes(y = Sport), stat="count") +
+  labs(title = 'Number of athletes per sport in 2016') +
+  theme_bw() +
+  facet_wrap(events$Sport)
+
+summary(events)
