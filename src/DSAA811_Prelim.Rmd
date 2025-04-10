@@ -45,8 +45,8 @@ athletes <- read.csv('./data/athlete_events_data_dictionary.csv', header = TRUE)
 events <- read.csv('./data/athlete_events.csv', header = TRUE)
 countryDefdd<- read.csv('./data/country_definitions_data_dictionary.csv',header = TRUE)
 countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
-#The data set is huge this allows the processing of all the data to work better
-options(max.print=1000000)
+glossaryDef <- data.frame(Acronym = character(), Meaning = character())
+glossaryDef <- add_row(glossaryDef, Acronym = "NOC", Meaning = "National Olympic Committee")
 ```
 
 \newpage
@@ -57,7 +57,6 @@ options(max.print=1000000)
 
 # Glossary
 ```{r Glossary, include=TRUE}
-
   as_tibble(glossaryDef)
 ```
 

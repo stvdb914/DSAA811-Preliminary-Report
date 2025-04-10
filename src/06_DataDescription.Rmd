@@ -1,11 +1,11 @@
 ---
 title: "06_DataDescription"
 ---
-The [@bansal_2021_olympics_] data set called ''Olympics_" was compiled by ''Harsh Bansal" and was last updated 4 years ago. The dataset was uploaded and sourced from Kaggle [@keating_2025_kaggle]. According to the site, there is only one owner with no DOI Citation, provenance or license. The restriction on the data is placed on it by Kaggle by way of citation of the owner ''Harsh Bansal". I am using this data at my own risk as it has not been authenticated or carefully curated. 
+The [@bansal_2021_olympics_] data set called "Olympics_" was compiled by "Harsh Bansal" and was last updated 4 years ago. The dataset was uploaded and sourced from Kaggle [@keating_2025_kaggle]. According to the site, there is only one owner with no DOI Citation, provenance or license. The restriction on the data is placed on it by Kaggle by way of citation of the owner "Harsh Bansal". I am using this data at my own risk as it has not been authenticated or carefully curated. 
 
-The dataset contains 4 files, ''athlete_events_data_dictionary.csv" contains 15 observations of 2 variables, ''country_definitions.csv" contains 230 observations of 3 variables, ''country_definitions_data_dictionary.csv" contains 3 observations of 2 variables, and ''athlete_events.csv" containing 271,116 observations of 15 variables.
+The dataset contains 4 files, "athlete_events_data_dictionary.csv" contains 15 observations of 2 variables, "country_definitions.csv" contains 230 observations of 3 variables, "country_definitions_data_dictionary.csv" contains 3 observations of 2 variables, and "athlete_events.csv" containing 271,116 observations of 15 variables.
 
-The ''athlete_events.csv" file contains all athlete information of all the Olympic games dating from 1896 summer games and 1924 winter games up to and including the 2016 summer Olympic games. The following table outlines the variables contained within the set.
+The "athlete_events.csv" file contains all athlete information of all the Olympic games dating from 1896 summer games and 1924 winter games up to and including the 2016 summer Olympic games. The following table outlines the variables contained within the set.
 ```{r demo, include=TRUE}
 athletes
 ```

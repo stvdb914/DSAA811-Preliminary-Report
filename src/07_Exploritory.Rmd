@@ -2,4 +2,74 @@
 title: "07_Exploritory"
 ---
 
-Exploritory
+The first thing we should do with the datasets is to load them into r using  the following code.
+
+```{r Load, include=TRUE}
+#Read in the 4 csv files
+athletes <- read.csv('./data/athlete_events_data_dictionary.csv', 
+                     header = TRUE)
+events <- read.csv('./data/athlete_events.csv', 
+                   header = TRUE)
+countryDefdd<- read.csv('./data/country_definitions_data_dictionary.csv',
+                        header = TRUE)
+countryDef <- read.csv('./data/country_definitions.csv',
+                       header = TRUE)
+
+#Get a summary view of the data
+summary(athletes)
+summary(events)
+```
+The athletes table is the meta data for the events table. There is a lot of missing data in the events table for height and weight of the athletes. NOC, sex, and  year are categorical variables and have been coded as characters or numerical. These will need to be re coded into factors. 
+```{r countryfiles, include = TRUE}
+summary(countryDefdd)
+summary(countryDef)
+```
+CountryDefdd is the meta data for the countryDef file. These columns are NOC, the region that can be used for geospatial maps and the actual country name if the geospace location is unavailable. The countryDef is the data to represent this information.
+
+Before I try to perform some explorations on the data it is imperative that we clean the data up a bit. Factoring the above variables will help with speed to process the data.
+
+```{r cleanup, include = TRUE}
+events$Sex <- factor(events$Sex,
+                     levels = c("M","F"),
+                     labels = c("M","F"))
+
+#years <- distinct(events, Year)
+#events$Year <- factor(events$Year,
+  #                    levels = years,
+  #                    labels = years)
+#class(events$Year)
+```
+
+From here we can get a breakdown of the number of athletes that compete in each sport since the 2000 Summer games as shown below.
+
+```{r summer, include=TRUE}
+Summer <- events %>% filter (Season == "Summer") %>% filter (Year > 2000)
+```
+
+```{r summergraph, fig.width = 15, fig.height = 20, include=TRUE}
+Summer %>% 
+  ggplot() +
+  geom_bar(aes(y = Sport), stat="count") +
+  labs(title = 'Number of athletes per sport, per year, 
+       between 2000 and 2020 at the summer olympic games', 
+       x = "Number of athletes", y = "Sport") + 
+  theme_bw() + 
+  theme(axis.text = element_text(family="serif", size = 14)) +  
+  facet_wrap(vars(Summer$Year))
+```
+Similarly we can get a break down of the number of competing athletes at the Winter olympic games since 2000
+```{r winter, include=FALSE}
+winter <- events %>% filter (Season == "Winter") %>% filter (Year > 2000)
+```
+
+```{r wintergraph, fig.width = 15, fig.height = 13, include=TRUE}
+winter %>% 
+  ggplot() +
+  geom_bar(aes(y = Sport, stat="count")) +
+  labs(title = 'Number of athletes per sport, per year,
+       between 2000 and 2020 at the winter olympic games', 
+       x = "Number of athletes", y = "Sport") + 
+  theme_bw() + 
+  theme(axis.text = element_text(family="serif", size = 14)) + 
+  facet_wrap(vars(winter$Year))
+```

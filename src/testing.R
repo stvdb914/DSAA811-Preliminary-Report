@@ -20,7 +20,7 @@ events  %>% filter(Year == 2016) %>%
   theme_minimal(12)
 
 
-events %>% filter (Year >= 2012) %>%
+events %>% filter ((Year == 2012) | (Year == 2016)) %>%
   ggplot() +
   geom_bar(aes(y = Sport), stat="count") +
   labs(title = 'Number of athletes per sport in 2016') +
@@ -29,10 +29,36 @@ events %>% filter (Year >= 2012) %>%
 
 options(max.print=1000000)
 
-events %>% filter (Year == 2016) %>%  ggplot() +
+events %>% filter (Year == 2000) %>%
+  ggplot() +
   geom_bar(aes(y = Sport), stat="count") +
-  labs(title = 'Number of athletes per sport in 2016') +
-  theme_bw() +
-  facet_wrap(events$Sport)
+  labs(title = 'Number of athletes per sport in 2000') +
+  theme_bw()
 
 summary(events)
+
+events$Sex <- factor(events$Sex,
+                     levels = c("M","F"),
+                     labels = c("M","F"))
+
+distinct(events, Year) 
+years <- distinct(events, Year)
+events$Year <- factor(events$Year,
+                      levels = years,
+                      labels = years)
+class(events$Year)
+
+events %>% filter (Year >= 2000) %>%
+  ggplot() +
+  geom_bar(aes(y = Sport), stat="count") +
+  labs(title = 'Number of athletes per sport in 2000') + theme_bw() +
+  facet_wrap(vars(events$Year >= 2000))
+
+Summer <- events %>% filter (Season == "Summer") %>% filter (Year > 2000)
+Summer %>% 
+  ggplot(aes(width=60, height=100)) +
+  geom_bar(aes(y = Sport), stat="count") +
+  labs(title = 'Number of athletes per sport in 2000') + theme_bw() +
+  facet_wrap(vars(Summer$Year))
+
+
