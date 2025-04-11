@@ -1,4 +1,28 @@
 ---
 title: "01_Abstract"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  html_document
 ---
+
+
+```{r AbstractSetup, include=FALSE}
+library(knitr)
+library(tinytex)
+library(tidyverse)
+opts_chunk$set(echo = TRUE)
+#Read in the 4 csv files
+athletes <- read.csv('./data/athlete_events_data_dictionary.csv', header = TRUE)
+events <- read.csv('./data/athlete_events.csv', header = TRUE)
+countryDefdd<- read.csv('./data/country_definitions_data_dictionary.csv',header = TRUE)
+countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
+glossaryDef <- data.frame(Acronym = character(), Meaning = character())
+glossaryDef <- add_row(glossaryDef, Acronym = "NOC", Meaning = "National Olympic Committee")
+```
+
 - For now, just a heading for this section

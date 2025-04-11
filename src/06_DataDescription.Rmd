@@ -1,6 +1,30 @@
 ---
 title: "06_DataDescription"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  html_document
 ---
+
+
+```{r DataDescriptionSetup, include=FALSE}
+library(knitr)
+library(tinytex)
+library(tidyverse)
+opts_chunk$set(echo = TRUE)
+#Read in the 4 csv files
+athletes <- read.csv('./data/athlete_events_data_dictionary.csv', header = TRUE)
+events <- read.csv('./data/athlete_events.csv', header = TRUE)
+countryDefdd<- read.csv('./data/country_definitions_data_dictionary.csv',header = TRUE)
+countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
+glossaryDef <- data.frame(Acronym = character(), Meaning = character())
+glossaryDef <- add_row(glossaryDef, Acronym = "NOC", Meaning = "National Olympic Committee")
+```
+
 The [@bansal_2021_olympics_] data set called "Olympics_" was compiled by "Harsh Bansal" and was last updated 4 years ago. The dataset was uploaded and sourced from Kaggle [@keating_2025_kaggle]. According to the site, there is only one owner with no DOI Citation, provenance or license. The restriction on the data is placed on it by Kaggle by way of citation of the owner "Harsh Bansal". I am using this data at my own risk as it has not been authenticated or carefully curated. 
 
 The dataset contains 4 files, "athlete_events_data_dictionary.csv" contains 15 observations of 2 variables, "country_definitions.csv" contains 230 observations of 3 variables, "country_definitions_data_dictionary.csv" contains 3 observations of 2 variables, and "athlete_events.csv" containing 271,116 observations of 15 variables.

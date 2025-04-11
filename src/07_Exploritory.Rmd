@@ -1,6 +1,29 @@
 ---
 title: "07_Exploritory"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  html_document
 ---
+
+
+```{r ExploritorySetup, include=FALSE}
+library(knitr)
+library(tinytex)
+library(tidyverse)
+opts_chunk$set(echo = TRUE)
+#Read in the 4 csv files
+athletes <- read.csv('./data/athlete_events_data_dictionary.csv', header = TRUE)
+events <- read.csv('./data/athlete_events.csv', header = TRUE)
+countryDefdd<- read.csv('./data/country_definitions_data_dictionary.csv',header = TRUE)
+countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
+glossaryDef <- data.frame(Acronym = character(), Meaning = character())
+glossaryDef <- add_row(glossaryDef, Acronym = "NOC", Meaning = "National Olympic Committee")
+```
 
 The first thing we should do with the datasets is to load them into r using  the following code.
 
@@ -47,11 +70,12 @@ Summer <- events %>% filter (Season == "Summer") %>% filter (Year > 2000)
 ```
 
 ```{r summergraph, fig.width = 15, fig.height = 20, include=TRUE}
+txtTitle <- paste('Number of athletes per sport, per year, between 2000 ',
+        'and 2020 at the summer olympic games')
 Summer %>% 
   ggplot() +
-  geom_bar(aes(y = Sport), stat="count") +
-  labs(title = 'Number of athletes per sport, per year, 
-       between 2000 and 2020 at the summer olympic games', 
+  geom_bar(aes(y = fct_rev(fct_infreq(Sport))), stat="count") +
+  labs(title = txtTitle, 
        x = "Number of athletes", y = "Sport") + 
   theme_bw() + 
   theme(axis.text = element_text(family="serif", size = 14)) +  
@@ -63,13 +87,45 @@ winter <- events %>% filter (Season == "Winter") %>% filter (Year > 2000)
 ```
 
 ```{r wintergraph, fig.width = 15, fig.height = 13, include=TRUE}
+txtTitle <- paste('Number of athletes per sport, per year,',
+       ' between 2000 and 2020 at the winter olympic games')
 winter %>% 
   ggplot() +
-  geom_bar(aes(y = Sport, stat="count")) +
-  labs(title = 'Number of athletes per sport, per year,
-       between 2000 and 2020 at the winter olympic games', 
+  geom_bar(aes(y = fct_rev(fct_infreq(Sport))), stat="count") +
+  labs(title = txtTitle, 
        x = "Number of athletes", y = "Sport") + 
   theme_bw() + 
   theme(axis.text = element_text(family="serif", size = 14)) + 
   facet_wrap(vars(winter$Year))
 ```
+
+Whilst these plots look cool it is hard to read. It does take up a lot of space on the page, and I am not seeing any major changes to the number of athletes that have been sent in the past four summer or winter olympics. If this data is needed a table would be a better representation of it. Below is the same information for one of the olympics, summer or winter.
+
+```{r summertable, fig.width = 15, fig.height = 20, include=TRUE}
+summerCounts <- Summer %>% 
+  group_by (Year) %>%
+  filter(Year == 2016) %>%
+  count(Sport) %>% arrange(desc(n))
+
+print.data.frame (summerCounts)
+
+winterCounts <- winter %>% 
+  group_by (Year) %>%
+  filter(Year == 2014) %>%
+  count(Sport) %>% arrange(desc(n))
+
+print.data.frame (winterCounts)
+```
+This data set lets you plot the athletes height and weight to see if there is any benifit to selecting athletes of a certain structure. Below is an example using the swimming data in the data set
+
+```{r numericals, fig.width = 15, fig.height = 20, include=TRUE}
+  events %>% filter(Sport == "Swimming") %>%
+  ggplot() +
+  geom_point(aes(x = Age, y = Weight)) +
+  labs(title = 'Olympic swimmers ages and weights') +
+  theme_bw()
+```
+From this we can see that swimmers are optimal when they are unfer the age of 40 and smaller than 100 kilograms in general, across all the Olympics.
+
+At this stage I still need to find some more research articles that I can replicate to make a story with this data set, There are still many avenues that I can follow up with.
+

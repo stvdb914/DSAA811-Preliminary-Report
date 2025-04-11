@@ -1,10 +1,38 @@
 ---
 title: "03_Background"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  html_document
 ---
 
-This is the sub section of the main project
+
+```{r BackgroundSetup, include=FALSE}
+library(knitr)
+library(tinytex)
+library(tidyverse)
+opts_chunk$set(echo = TRUE)
+#Read in the 4 csv files
+athletes <- read.csv('./data/athlete_events_data_dictionary.csv', header = TRUE)
+events <- read.csv('./data/athlete_events.csv', header = TRUE)
+countryDefdd<- read.csv('./data/country_definitions_data_dictionary.csv',header = TRUE)
+countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
+glossaryDef <- data.frame(Acronym = character(), Meaning = character())
+glossaryDef <- add_row(glossaryDef, Acronym = "NOC", Meaning = "National Olympic Committee")
+```
+
+I have been looking into some articles regarding the statistics around reducing the number of athletes that a country can send to the Olympics to procure the maximum medals. The following three articles are of interest, and depending on the information, I can extract from my dataset. One of these avenues will become the focus element for this report.
+
+[@haut_2014_nothing] examines the statistics of the Olympics but also investigates the data from the perspective of increasing funds to rural areas to enhance performance and ultimately achieve more winners. At this stage I don't think that this report will be useful, however there is some regional information in my data set that I can use to plot the locations of the athletes on a world map.
 
 
-[@haut_2014_nothing] Looks into the statistics of the Olympics but is investigating the data from the perspective of increasing funds to the rural areas to increase performance and then winners.
-[@condon_1999_predicting] Uses neural networks to produce three models that look at winners from a country perspective using data up until 1996
-[@heazlewood_2006_prediction] Looks into creating models to predict the optimal athlete numbers for all swimming events. This article was able to make some of these predictions but improvements are needed to apply these results to athletics and swimming across the various distances of the races. These models are applied to results from 2004 and earlier.
+[@condon_1999_predicting] Uses neural networks to produce three models that look at winners from a country perspective using data up until 1996. If I can get the same results, my data set continues to 2016, so this avenue would allow me to extend their findings on the years post 1996 to 2016.
+
+
+[@heazlewood_2006_prediction] Looks into creating models to predict the optimal athlete numbers for all swimming events. This article was able to make some of these predictions, but improvements are needed to apply these results to athletics and swimming across the various distances of the races. These models are applied to results from 2004 and earlier. This article is of particular interest because of the break down of athletes into sections, mainly swimming. It could be useful to attempt to extend their results to apply it to other sports, such as athletics in summer or cross country skiing in winter.
+
+Some of the terminology that I have come across is NOC or National Olympic Committee. Each country has a member that is on the committee and they are responsible for that country. Every athlete must compete under their NOC. I can used this NOC to get a general location of the athletes home town when comparing countries for athlete levels.

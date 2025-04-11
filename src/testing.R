@@ -62,3 +62,6 @@ Summer %>%
   facet_wrap(vars(Summer$Year))
 
 
+summerCounts <- Summer %>%  
+  group_by (Year) %>%
+  count(Sport)
